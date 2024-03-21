@@ -1,40 +1,38 @@
 var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-const mongoose  = require('mongoose');
-
-require('dotenv').config();
-
-var app = express();
-
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
-});
-
-const cors = require('cors');
+const mongoose = require("mongoose");
+const cors = require("cors");
+const app = express();
+const port = 3000;
 
 
-//connect to mongodb
-mongoose.connect(process.env.MONGODB);
-//check connection 
+// Enable CORS
+app.use(cors());
+
+// Check connection 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
     console.log("Connected to MongoDB!");
+    app.use(cors());
 
+    const server = app.listen(port, () => {
+        console.log(`Example app listening on port ${port}`);
+    });
 
+    const cors = require('cors');
 
+    // Connect to MongoDB (add slash for web)
+    const credentials = "etc/secrets/credentials.pem";
+    mongoose.connect("mongodb+srv://pulsaid.ooraany.mongodb.net/app?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority&appName=PulsAid", {
+        
+        tlsCertificateKeyFile: credentials,
+    });
+    app.use(express.json());
 
-//use cors
-app.use(cors());
-app.use(express.json());
-
-//import routers
-const emergenciesRouter = require('./routes/api/v1/emergencies');
-
-//use the routers
-app.use('/api/v1/emergencies', emergenciesRouter);
+    //import routers
+    const emergenciesRouter = require('./routes/api/v1/emergencies');
+    //use the routers
+    app.use('/api/v1/emergencies', emergenciesRouter);
 });
 
 module.exports = app;
