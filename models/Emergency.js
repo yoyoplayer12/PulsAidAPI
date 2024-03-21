@@ -10,12 +10,10 @@ const EmergencySchema = new Schema({
         type: Number,
         required: true
     },
-    timestamp: {
-        type: String,
-    },
     extraInfo: {
         type: String,
-        required: false
+        required: false,
+        default: null,
     },
     userId: {
         type: [String],
@@ -27,21 +25,27 @@ const EmergencySchema = new Schema({
             required: false,
             min: 1,
             max: 5,
+            default: null,
         },
         gebruiksGemak:{
             type: Number,
             required: false,
             min: 1,
             max: 5,
+            default: null,
         },
         feedback:{
             type: String,
-            required: false
+            required: false,
+            default: null,
         }
-    }
-
+    },
+    timestamp: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 //export the model to use in index.js
-const Emergency = mongoose.model('Emergency', EmergencySchema);
+const Emergency = mongoose.model('Emergency', EmergencySchema, "oproepen");
 module.exports = Emergency;
