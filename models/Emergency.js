@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+let dateStr = Date.now();
+let parts = dateStr.split(" ");
+let dateParts = parts[0].split("-");
+let timeParts = parts[1].split(":");
+let date = new Date(dateParts[2], dateParts[1] - 1, dateParts[0], timeParts[0], timeParts[1], timeParts[2]);
+
 const EmergencySchema = new Schema({
     latitude: {
         type: Number,
@@ -38,7 +44,7 @@ const EmergencySchema = new Schema({
     },
     timestamp: {
         type: Date,
-        default: Date.now,
+        default: date,
     },
 });
 
