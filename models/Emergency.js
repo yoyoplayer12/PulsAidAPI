@@ -10,11 +10,6 @@ const EmergencySchema = new Schema({
         type: Number,
         required: true
     },
-    extraInfo: {
-        type: String,
-        required: false,
-        default: null,
-    },
     userId: {
         type: [String],
         required: false
@@ -25,20 +20,21 @@ const EmergencySchema = new Schema({
             required: false,
             min: 1,
             max: 5,
-            default: null,
         },
         gebruiksGemak:{
             type: Number,
             required: false,
             min: 1,
             max: 5,
-            default: null,
         },
         feedback:{
             type: String,
             required: false,
-            default: null,
         }
+    },
+    extraInfo: {
+        type: String,
+        required: false,
     },
     timestamp: {
         type: Date,
