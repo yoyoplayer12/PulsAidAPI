@@ -37,7 +37,7 @@ const EmergencySchema = new Schema({
         required: false,
     },
     timestamp: {
-        type: Date,
+        type: String,
         default: Date.now,
     },
 });
