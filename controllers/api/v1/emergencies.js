@@ -1,5 +1,5 @@
 const e = require('express');
-const Emergency = require('../../../models/emergency');
+const Emergency = require('../../../models/Emergency.js');
 
 function formatDate(date = new Date()) {
     const day = String(date.getDate()).padStart(2, '0');
