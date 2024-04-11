@@ -38,7 +38,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    certification_startdate: {
+    certification_begindate: {
         type: Date,
     },
     certification_enddate: {
