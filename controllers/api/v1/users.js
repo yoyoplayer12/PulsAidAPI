@@ -53,13 +53,13 @@ const login = async (req, res) => {
     if (!user) {
         return res.status(401).json({
             status: 401,
-            message: "Invalid credentials"
+            message: "Email not found"
         });
     }
     if (!await bcrypt.compare(req.body.password, user.password)) {
         return res.status(401).json({
             status: 401,
-            message: "Invalid credentials"
+            message: "Password is incorrect"
         });
     }
     res.json({
