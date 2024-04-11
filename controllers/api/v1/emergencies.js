@@ -1,5 +1,7 @@
 const e = require('express');
 const Emergency = require('../../../models/Emergency.js');
+require('dotenv').config();
+const fetch = require('node-fetch');
 
 function formatDate(date = new Date()) {
     const day = String(date.getDate()).padStart(2, '0');
@@ -33,6 +35,26 @@ const create = async (req, res) => {
     emergency.timestamp = formatDate(new Date());
     let newEmergency = new Emergency(emergency);
     await newEmergency.save();
+    const url = 'https://api.onesignal.com/notifications';
+    const options = {
+        method: 'POST',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Basic ' + process.env.ONESIGNAL_API_KEY,
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            app_id: process.env.ONESIGNAL_APP_ID,
+            name: 'Emergency Alert',
+            included_segments: ['All'],
+            contents: {en: 'An emergency has been reported', nl: 'Er is een noodgeval gemeld'},
+        })
+    };
+
+    fetch(url, options)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
     res.json({
         status: 200,
         message: "Emergency created"
