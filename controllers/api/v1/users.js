@@ -20,6 +20,12 @@ const create = async (req, res) => {
 
     let user = req.body;
     user.password = await bcrypt.hash(user.password, 10);
+
+    // Convert string dates to Date objects
+    user.dob = convertDate(user.dob);
+    user.certification_begindate = convertDate(user.certification_begindate);
+    user.certification_enddate = convertDate(user.certification_enddate);
+
     let newUser = new User(user);
     await newUser.save();
     res.json({
@@ -28,6 +34,10 @@ const create = async (req, res) => {
     });
 };
 
+function convertDate(inputFormat) {
+    let parts = inputFormat.split('/');
+    return new Date(parts[2], parts[1] - 1, parts[0]);
+}
 const show = async (req, res) => {
     let user = await User.findById(req.params.id);
     res.json({ 
