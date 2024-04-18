@@ -32,20 +32,23 @@ const UserSchema = new Schema({
     },
     certification: {
         type: String,
-        required: true
+        required: false
     },
     certification_type: {
         type: String,
-        required: true
+        required: false
     },
     certification_begindate: {
         type: Date,
+        required: false
     },
     certification_enddate: {
         type: Date,
+        required: false
     },
     certification_number: {
         type: String,
+        required: false
     },
     timestamp: {
         type: String,
