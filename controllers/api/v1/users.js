@@ -23,10 +23,14 @@ const create = async (req, res) => {
 
     // Convert string dates to Date objects
     user.dob = convertDate(user.dob);
-    if(user.certification_begindate && user.certification_enddate){
-    user.certification_begindate = convertDate(user.certification_begindate);
-    user.certification_enddate = convertDate(user.certification_enddate);
-    }
+if(user.certifications){
+    user.certifications.forEach(certification => {
+        if(certification.certification_begindate && certification.certification_enddate){
+            certification.certification_begindate = convertDate(certification.certification_begindate);
+            certification.certification_enddate = convertDate(certification.certification_enddate);
+        }
+    });
+}
 
     let newUser = new User(user);
     await newUser.save();
