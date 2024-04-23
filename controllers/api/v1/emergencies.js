@@ -45,8 +45,9 @@ const create = async (req, res) => {
         },
         body: JSON.stringify({
             app_id: process.env.ONESIGNAL_APP_ID,
-            headings: {en: 'Emergency Alert Title', nl: 'Noodgeval Alert Titel'},
-            contents: {en: 'An emergency has been reported', nl: 'Er is een noodgeval gemeld'},
+            name: 'PulsAid notification',
+            headings: {en: 'Someone is dying!', nl: 'Iemand is aan het sterven!'},
+            contents: {en: 'Quickly, click me to save a life', nl: 'Klik snel om een leven te redden'},
             //possible location fix
             // filters: [
             //     {"field": "location", "radius": "500", "lat": emergency.latitude, "long": emergency.longitude}
