@@ -48,12 +48,12 @@ const create = async (req, res) => {
             name: 'PulsAid notification',
             headings: {en: 'Someone is dying!', nl: 'Iemand is aan het sterven!'},
             contents: {en: 'Quickly, click me to save a life', nl: 'Klik snel om een leven te redden'},
-            //possible location fix
-            // filters: [
-            //     {"field": "location", "radius": "500", "lat": emergency.latitude, "long": emergency.longitude}
-            // ],
-            // data: {longitude: emergency.longitude, latitude: emergency.latitude, extraInfo: emergency.extraInfo}
-            included_segments: ['All']
+            // possible location fix
+            filters: [
+                {"field": "location", "radius": "500", "lat": emergency.latitude, "long": emergency.longitude}
+            ],
+            data: {longitude: emergency.longitude, latitude: emergency.latitude, extraInfo: emergency.extraInfo}
+            // included_segments: ['All']
         })
     };
 
