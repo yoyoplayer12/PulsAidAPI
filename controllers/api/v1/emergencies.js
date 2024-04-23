@@ -47,10 +47,12 @@ const create = async (req, res) => {
             app_id: process.env.ONESIGNAL_APP_ID,
             headings: {en: 'Emergency Alert Title', nl: 'Noodgeval Alert Titel'},
             contents: {en: 'An emergency has been reported', nl: 'Er is een noodgeval gemeld'},
-            filters: [
-                {"field": "location", "radius": "500", "lat": emergency.latitude, "long": emergency.longitude}
-            ],
-            data: {longitude: emergency.longitude, latitude: emergency.latitude, extraInfo: emergency.extraInfo}
+            //possible location fix
+            // filters: [
+            //     {"field": "location", "radius": "500", "lat": emergency.latitude, "long": emergency.longitude}
+            // ],
+            // data: {longitude: emergency.longitude, latitude: emergency.latitude, extraInfo: emergency.extraInfo}
+            included_segments: ['All']
         })
     };
 
