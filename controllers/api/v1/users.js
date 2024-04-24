@@ -89,10 +89,21 @@ const checkEmail = async (req, res) => {
     });
 }
 
+const uploadCertificate = async (req, res) => {
+    let user = await User.findById(req.params.id);
+    user.certifications.push(req.body);
+    await user.save();
+    res.json({
+        status: 200,
+        message: "Certificate uploaded"
+    });
+}
+
 module.exports = {
     index,
     create,
     show,
     login,
     checkEmail,
+    uploadCertificate,
 };
