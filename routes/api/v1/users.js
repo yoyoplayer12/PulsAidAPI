@@ -6,5 +6,6 @@ router.get('/', users.index);
 router.post('/', users.create);
 router.get('/:id', users.show);
 router.post('/login', users.login);
+router.post('/checkEmail', users.checkEmail);
 
 module.exports = router;
