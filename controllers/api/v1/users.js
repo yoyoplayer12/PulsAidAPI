@@ -23,7 +23,6 @@ const create = async (req, res) => {
 
     // Convert string dates to Date objects
     user.dob = convertDate(user.dob);
-    console.log(user.certifications);
     user.certifications.forEach((cert) => {    
     if(cert.certification_begindate && cert.certification_enddate){
         cert.certification_begindate = convertDate(cert.certification_begindate);
