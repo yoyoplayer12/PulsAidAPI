@@ -73,9 +73,26 @@ const login = async (req, res) => {
     });
 }
 
+const checkEmail = async (req, res) => {
+    let user = await User.findOne({
+        email: req.body.email
+    });
+    if (user) {
+        return res.status(401).json({
+            status: 401,
+            message: "Email already exists"
+        });
+    }
+    res.json({
+        status: 200,
+        message: "Email is available"
+    });
+}
+
 module.exports = {
     index,
     create,
     show,
-    login
+    login,
+    checkEmail,
 };
