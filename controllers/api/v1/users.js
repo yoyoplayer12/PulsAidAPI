@@ -90,8 +90,9 @@ const checkEmail = async (req, res) => {
 }
 
 const uploadCertificate = async (req, res) => {
-    console.log(req.body);
     let user = await User.findById(req.params.id);
+    certification_begindate = convertDate(req.body.certification_begindate);
+    certification_enddate = convertDate(req.body.certification_enddate);
     user.certifications.push(req.body);
     await user.save();
     res.json({
