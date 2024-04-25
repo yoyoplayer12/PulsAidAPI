@@ -8,5 +8,6 @@ router.get('/:id', users.show);
 router.post('/login', users.login);
 router.post('/checkEmail', users.checkEmail);
 router.post('/:id/certificate', users.uploadCertificate);
+router.put('/:id/certificate/:certificateId', users.updateCertificate);
 
 module.exports = router;

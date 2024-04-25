@@ -101,6 +101,19 @@ const uploadCertificate = async (req, res) => {
     });
 }
 
+const updateCertificate = async (req, res) => {
+    let user = await User.findById(req.params.id);
+    let cert = user.certifications.id(req.params.certificateId);
+    req.body.certification_begindate = convertDate(req.body.certification_begindate);
+    req.body.certification_enddate = convertDate(req.body.certification_enddate);
+    cert.set(req.body);
+    await user.save();
+    res.json({
+        status: 200,
+        message: "Certificate updated"
+    });
+}
+
 module.exports = {
     index,
     create,
@@ -108,4 +121,5 @@ module.exports = {
     login,
     checkEmail,
     uploadCertificate,
+    updateCertificate,
 };
