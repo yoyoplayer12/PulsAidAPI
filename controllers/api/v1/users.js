@@ -104,8 +104,10 @@ const uploadCertificate = async (req, res) => {
 const updateCertificate = async (req, res) => {
     let user = await User.findById(req.params.id);
     let cert = user.certifications.id(req.params.certificateId);
+    if(req.body.certification_begindate && req.body.certification_enddate){
     req.body.certification_begindate = convertDate(req.body.certification_begindate);
     req.body.certification_enddate = convertDate(req.body.certification_enddate);
+    }
     cert.set(req.body);
     await user.save();
     res.json({
@@ -113,6 +115,21 @@ const updateCertificate = async (req, res) => {
         message: "Certificate updated"
     });
 }
+
+const update = async (req, res) => {
+    let user = await User.findById(req.params.id);
+    req.body.dob = convertDate(req.body.dob);
+    if(req.body.password){
+    req.body.password = await bcrypt.hash(req.body.password, 10);
+    }
+    user.set(req.body);
+    await user.save();
+    res.json({
+        status: 200,
+        message: "User updated"
+    });
+}
+
 
 module.exports = {
     index,
@@ -122,4 +139,5 @@ module.exports = {
     checkEmail,
     uploadCertificate,
     updateCertificate,
+    update,
 };
