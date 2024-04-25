@@ -130,6 +130,13 @@ const update = async (req, res) => {
     });
 }
 
+const destroy = async (req, res) => {
+    await User.findByIdAndDelete(req.params.id);
+    res.json({
+        status: 200,
+        message: "User deleted"
+    });
+}
 
 module.exports = {
     index,
@@ -140,4 +147,5 @@ module.exports = {
     uploadCertificate,
     updateCertificate,
     update,
+    destroy,
 };
