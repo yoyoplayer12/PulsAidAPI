@@ -112,7 +112,8 @@ const updateCertificate = async (req, res) => {
     await user.save();
     res.json({
         status: 200,
-        message: "Certificate updated"
+        message: "Certificate updated",
+        user: user
     });
 }
 
