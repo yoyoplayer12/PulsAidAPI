@@ -118,7 +118,9 @@ const updateCertificate = async (req, res) => {
 
 const update = async (req, res) => {
     let user = await User.findById(req.params.id);
+    if(req.body.dob){
     req.body.dob = convertDate(req.body.dob);
+    }
     if(req.body.password){
     req.body.password = await bcrypt.hash(req.body.password, 10);
     }
