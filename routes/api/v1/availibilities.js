@@ -4,6 +4,5 @@ const conversations = require('../../../controllers/api/v1/availibilty.js');
 
 router.get('/', conversations.index);
 router.post('/', conversations.create);
-router.get('/:id', conversations.show);
 
 module.exports = router;
