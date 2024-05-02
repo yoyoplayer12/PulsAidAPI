@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 const AvailablitySchema = new Schema({
     startdate: {
-        type: DateTime,
+        type: Date,
         required: true
     },
     enddate: {
-        type: DateTime,
+        type: Date,
         required: true
     },
     user: {
