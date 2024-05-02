@@ -1,5 +1,5 @@
 const e = require('express');
-const Availability = require('../../../models/Availability.js');
+const Availability = require('../../../models/Availibility.js');
 require('dotenv').config();
 
 
@@ -30,9 +30,6 @@ const create = async (req, res) => {
         message: "availability created"
     });
 };
-
-
-
 
 
 module.exports = {
