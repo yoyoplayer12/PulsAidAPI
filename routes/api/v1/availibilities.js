@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const conversations = require('../../../controllers/api/v1/availibilty.js');
+const conversations = require('../../../controllers/api/v1/availibility.js');
 
 router.get('/', conversations.index);
 router.post('/', conversations.create);
