@@ -76,10 +76,28 @@ const show = async (req, res) => {
     });
 };
 
+const update = async (req, res) => {
+    let emergency = await Emergency.findById(req.params.id);
+    if (emergency) {
+        emergency.feedback = req.body.feedback;
+        await emergency.save();
+        res.json({
+            status: 200,
+            message: "Emergency updated"
+        });
+    } else {
+        res.status(404).json({
+            status: 404,
+            message: "Emergency not found"
+        });
+    }
+};
+
 
 
 module.exports = {
     index,
     create,
-    show
+    show,
+    update
 };

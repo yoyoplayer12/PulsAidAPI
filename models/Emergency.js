@@ -15,13 +15,13 @@ const EmergencySchema = new Schema({
         required: false
     },
     feedback: {
-        weg:{
+        way:{
             type: Number,
             required: false,
             min: 1,
             max: 5,
         },
-        gebruiksGemak:{
+        usability:{
             type: Number,
             required: false,
             min: 1,
