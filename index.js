@@ -32,9 +32,11 @@ db.once("open", () => {
 	//import routers
 	const emergenciesRouter = require("./routes/api/v1/emergencies");
 	const usersRouter = require("./routes/api/v1/users");
+	const conversationsRouter = require("./routes/api/v1/conversations");
 	//use the routers
 	app.use("/api/v1/emergencies", emergenciesRouter);
 	app.use("/api/v1/users", usersRouter);
+	app.use("/api/v1/conversations", conversationsRouter);
 });
 
 module.exports = app;
