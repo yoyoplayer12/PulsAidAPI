@@ -31,6 +31,14 @@ const create = async (req, res) => {
     });
 };
 
+const show = async (req, res) => {
+let availability = await Availability.find({ user: req.params.id });    
+res.json({
+        status: 200,
+        availability: availability
+    });
+}
+
 
 module.exports = {
     index,
