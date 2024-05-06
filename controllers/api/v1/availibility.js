@@ -43,4 +43,5 @@ res.json({
 module.exports = {
     index,
     create,
+    show
 };
