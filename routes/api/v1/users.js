@@ -11,5 +11,6 @@ router.post('/:id/certificate', users.uploadCertificate);
 router.put('/:id/certificate/:certificateId', users.updateCertificate);
 router.put('/:id', users.update);
 router.delete('/:id', users.destroy);
+router.put('/:id/recovery', users.recovery);
 
 module.exports = router;

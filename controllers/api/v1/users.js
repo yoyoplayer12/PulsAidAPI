@@ -142,6 +142,24 @@ const destroy = async (req, res) => {
     });
 }
 
+const recoveryCode = async (req, res) => {
+    let user = await User.findOne({
+        email: req.body.email
+    });
+    if(req.body.dob){
+    req.body.dob = convertDate(req.body.dob);
+    }
+    if(req.body.password){
+    req.body.password = await bcrypt.hash(req.body.password, 10);
+    }
+    user.set(req.body);
+    await user.save();
+    res.json({
+        status: 200,
+        message: "User updated"
+    });
+}
+
 module.exports = {
     index,
     create,
@@ -152,4 +170,5 @@ module.exports = {
     updateCertificate,
     update,
     destroy,
+    recoveryCode
 };
