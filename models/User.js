@@ -52,7 +52,7 @@ const UserSchema = new Schema({
             required: false
         },
     }],
-    recoverycode: {
+    recoveryCode: {
         type: String,
         required: false
     },
