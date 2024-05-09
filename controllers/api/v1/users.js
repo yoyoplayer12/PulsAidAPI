@@ -142,7 +142,7 @@ const destroy = async (req, res) => {
     });
 }
 
-const recoveryCode = async (req, res) => {
+const recovery = async (req, res) => {
     let user = await User.findOne({
         email: req.body.email
     });
@@ -170,5 +170,5 @@ module.exports = {
     updateCertificate,
     update,
     destroy,
-    recoveryCode
+    recovery
 };
