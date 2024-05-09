@@ -144,14 +144,9 @@ const destroy = async (req, res) => {
 
 const recovery = async (req, res) => {
     let user = await User.findOne({
-        email: req.body.email
+        email: req.params.id
     });
-    if(req.body.dob){
-    req.body.dob = convertDate(req.body.dob);
-    }
-    if(req.body.password){
-    req.body.password = await bcrypt.hash(req.body.password, 10);
-    }
+
     user.set(req.body);
     await user.save();
     res.json({
