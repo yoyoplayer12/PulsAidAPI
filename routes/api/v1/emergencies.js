@@ -6,5 +6,6 @@ router.get('/', emergencies.index);
 router.post('/', emergencies.create);
 router.get('/:id', emergencies.show);
 router.put('/:id', emergencies.update);
+router.get('/amount/:id', emergencies.amount);
 
 module.exports = router;

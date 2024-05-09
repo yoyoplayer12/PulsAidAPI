@@ -93,11 +93,19 @@ const update = async (req, res) => {
     }
 };
 
+const amount = async (req, res) => {
+    let count = await Emergency.countDocuments({ userId: req.params.id });
+    res.json({ 
+        status: 200,
+        amount: count
+    });
+};
 
 
 module.exports = {
     index,
     create,
     show,
-    update
+    update,
+    amount
 };
