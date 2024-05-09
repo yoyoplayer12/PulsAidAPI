@@ -147,6 +147,10 @@ const recovery = async (req, res) => {
         email: req.params.id
     });
 
+    if(req.body.password){
+        req.body.password = await bcrypt.hash(req.body.password, 10);
+    }
+
     user.set(req.body);
     await user.save();
     res.json({
