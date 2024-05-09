@@ -52,6 +52,10 @@ const UserSchema = new Schema({
             required: false
         },
     }],
+    recoverycode: {
+        type: String,
+        required: false
+    },
     timestamp: {
         type: String,
         default: Date.now,
