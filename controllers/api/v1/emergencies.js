@@ -52,7 +52,7 @@ const create = async (req, res) => {
             contents: {en: 'Quickly, click me to save a life', nl: 'Klik snel om een leven te redden'},
             // possible location fix
             filters: [
-                {"field": "location", "radius": "500", "lat": emergency.latitude, "long": emergency.longitude}
+                {"field": "location", "radius": "10000", "lat": emergency.latitude, "long": emergency.longitude}
             ],
             data: {longitude: emergency.longitude, latitude: emergency.latitude, extraInfo: emergency.extraInfo},
             // included_segments: ['All']
@@ -76,10 +76,28 @@ const show = async (req, res) => {
     });
 };
 
+const update = async (req, res) => {
+    let emergency = await Emergency.findById(req.params.id);
+    if (emergency) {
+        emergency.feedback = req.body.feedback;
+        await emergency.save();
+        res.json({
+            status: 200,
+            message: "Emergency updated"
+        });
+    } else {
+        res.status(404).json({
+            status: 404,
+            message: "Emergency not found"
+        });
+    }
+};
+
 
 
 module.exports = {
     index,
     create,
-    show
+    show,
+    update
 };
