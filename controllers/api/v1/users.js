@@ -155,6 +155,23 @@ const recovery = async (req, res) => {
     });
 }
 
+const checkRecovery = async (req, res) => {
+    let user = await User.findOne({
+        email: req.params.id,
+        recoveryCode: req.body.recoveryCode
+    });
+    if (!user) {
+        return res.status(401).json({
+            status: 401,
+            message: "Email not found"
+        });
+    }
+    res.json({
+        status: 200,
+        message: "Email found"
+    });
+}
+
 module.exports = {
     index,
     create,
@@ -165,5 +182,6 @@ module.exports = {
     updateCertificate,
     update,
     destroy,
-    recovery
+    recovery,
+    checkRecovery
 };
