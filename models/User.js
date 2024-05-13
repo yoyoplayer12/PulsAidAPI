@@ -52,6 +52,26 @@ const UserSchema = new Schema({
             required: false
         },
     }],
+    contact: [
+        {
+            email: {
+                type: String,
+                required: false
+            },
+            phone: {
+                type: String,
+                required: false
+            },
+            intagram: {
+                type: String,
+                required: false
+            },
+            facebook: {
+                type: String,
+                required: false
+            },
+        }
+    ],
     recoveryCode: {
         type: String,
         required: false
