@@ -76,6 +76,10 @@ const UserSchema = new Schema({
         type: String,
         required: false
     },
+    notifications: {
+        type: Boolean,
+        required: false
+    },
     timestamp: {
         type: String,
         default: Date.now,
