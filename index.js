@@ -40,7 +40,7 @@ db.once("open", () => {
 	app.use("/api/v1/users", usersRouter);
 	app.use("/api/v1/conversations", conversationsRouter);
 	app.use("/api/v1/availibilities", availibilitiesRouter);
-	app.use("/api/v1/sideNotifications", require(sidenotificationsRouter));
+	app.use("/api/v1/sideNotifications", sidenotificationsRouter);
 });
 
 module.exports = app;
