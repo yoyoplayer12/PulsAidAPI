@@ -70,7 +70,8 @@ const login = async (req, res) => {
         status: 200,
         message: "Login successful",
         id: user._id,
-        language: user.language
+        language: user.language,
+        role: user.role
     });
 }
 
