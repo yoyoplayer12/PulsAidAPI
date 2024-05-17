@@ -34,11 +34,13 @@ db.once("open", () => {
 	const usersRouter = require("./routes/api/v1/users");
 	const conversationsRouter = require("./routes/api/v1/conversations");
 	const availibilitiesRouter = require("./routes/api/v1/availibilities");
+	const sidenotificationsRouter = require("./routes/api/v1/sideNotifications");
 	//use the routers
 	app.use("/api/v1/emergencies", emergenciesRouter);
 	app.use("/api/v1/users", usersRouter);
 	app.use("/api/v1/conversations", conversationsRouter);
 	app.use("/api/v1/availibilities", availibilitiesRouter);
+	app.use("/api/v1/sideNotifications", require(sidenotificationsRouter));
 });
 
 module.exports = app;
