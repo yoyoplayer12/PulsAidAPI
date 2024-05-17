@@ -62,7 +62,7 @@ const UserSchema = new Schema({
                 type: String,
                 required: false
             },
-            intagram: {
+            instagram: {
                 type: String,
                 required: false
             },
