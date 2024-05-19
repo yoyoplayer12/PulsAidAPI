@@ -128,11 +128,14 @@ const update = async (req, res) => {
     if(req.body.password){
     req.body.password = await bcrypt.hash(req.body.password, 10);
     }
-    if(req.body.certifications.certification_begindate && req.body.certifications.certification_enddate){
-        req.body.certifications.certification_begindate = convertDate(req.body.certifications.certification_begindate);
-        req.body.certifications.certification_enddate = convertDate(req.body.certifications.certification_enddate);
-        console.log(req.body.certifications.certification_begindate);
-        console.log(req.body.certifications.certification_enddate);
+    if(req.body.certifications){
+        req.body.certifications = req.body.certifications.map(certification => {
+            if(certification.certification_begindate && certification.certification_enddate){
+                certification.certification_begindate = convertDate(certification.certification_begindate);
+                certification.certification_enddate = convertDate(certification.certification_enddate);
+            }
+            return certification;
+        });
     }
     user.set(req.body);
     await user.save();
