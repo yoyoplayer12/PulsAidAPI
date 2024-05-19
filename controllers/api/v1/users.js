@@ -120,6 +120,7 @@ const updateCertificate = async (req, res) => {
 }
 
 const update = async (req, res) => {
+    console.log(req.body);
     let user = await User.findById(req.params.id);
     if(req.body.dob){
     req.body.dob = convertDate(req.body.dob);
