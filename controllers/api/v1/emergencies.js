@@ -54,7 +54,7 @@ const create = async (req, res) => {
             filters: [
                 {"field": "location", "radius": "10000", "lat": emergency.latitude, "long": emergency.longitude}
             ],
-            data: {longitude: emergency.longitude, latitude: emergency.latitude, extraInfo: emergency.extraInfo},
+            data: {longitude: emergency.longitude, latitude: emergency.latitude, extraInfo: emergency.extraInfo, route: '/emergency/' + emergency._id},
             // included_segments: ['All']
         })
     };
