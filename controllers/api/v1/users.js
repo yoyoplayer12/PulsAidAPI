@@ -131,6 +131,8 @@ const update = async (req, res) => {
     if(req.body.certifications.certification_begindate && req.body.certifications.certification_enddate){
         req.body.certifications.certification_begindate = convertDate(req.body.certifications.certification_begindate);
         req.body.certifications.certification_enddate = convertDate(req.body.certifications.certification_enddate);
+        console.log(req.body.certifications.certification_begindate);
+        console.log(req.body.certifications.certification_enddate);
     }
     user.set(req.body);
     await user.save();
