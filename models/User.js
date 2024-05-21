@@ -81,6 +81,10 @@ const UserSchema = new Schema({
         required: false,
         default: true
     },
+    privacy: {
+        type: Boolean,
+        required: true,
+    },
     timestamp: {
         type: String,
         default: Date.now,
