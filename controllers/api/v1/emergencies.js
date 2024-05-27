@@ -52,10 +52,9 @@ const create = async (req, res) => {
             contents: {en: 'Quickly, click me to save a life', nl: 'Klik snel om een leven te redden'},
             // possible location fix
             filters: [
-                {"field": "location", "radius": "10000", "lat": emergency.latitude, "long": emergency.longitude}
+                {"field": "location", "radius": "10000", "lat": emergency.latitude, "long": emergency.longitude} // 10 km radius
             ],
             data: {longitude: emergency.longitude, latitude: emergency.latitude, extraInfo: emergency.extraInfo, route: '/emergency/' + emergency._id},
-            included_segments: ['All']
         })
     };
 
