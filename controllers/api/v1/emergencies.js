@@ -4,7 +4,7 @@ const User = require('../../../models/User.js');
 require('dotenv').config();
 const fetch = require('node-fetch');
 const { get } = require('mongoose');
-const { io } = require('../../index.js');
+const { io } = require('../../../index.js');
 
 function formatDate(date = new Date()) {
     const day = String(date.getDate()).padStart(2, '0');
