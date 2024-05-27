@@ -129,5 +129,6 @@ module.exports = {
     create,
     show,
     update,
-    amount
+    amount,
+    addHelper
 };
