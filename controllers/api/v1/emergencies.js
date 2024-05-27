@@ -1,5 +1,6 @@
 const e = require('express');
 const Emergency = require('../../../models/Emergency.js');
+const User = require('../../../models/User.js');
 require('dotenv').config();
 const fetch = require('node-fetch');
 
@@ -102,15 +103,27 @@ const amount = async (req, res) => {
 
 const addHelper = async (req, res) => {
     let emergency = await Emergency.findById(req.params.id);
+    let user = await User.findById(req.body.userId);
     let userId = req.body.userId;
     if (emergency) {
-        emergency.userId.push(userId);
+        emergency.helpers.push(userId);
         await emergency.save();
         console.log('Added helper to emergency');
-        res.json({
-            status: 200,
-            message: "helper added to emergency"
-        });
+        if(user){
+            user.emergencies.push(req.params.id);
+            await user.save();
+            console.log('Added emergency to user');
+            res.json({
+                status: 200,
+                message: "Emergency added to user and helper added to emergency"
+            });
+        } else {
+            console.log('User not found');
+            res.json({
+                status: 404,
+                message: "User not found"
+            });
+        }
     } else {
         console.log('Emergency not found');
         res.status(404).json({
