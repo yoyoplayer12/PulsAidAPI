@@ -85,6 +85,10 @@ const UserSchema = new Schema({
         type: Boolean,
         required: true,
     },
+    emergencies: {
+        type: [String],
+        required: false
+    },
     timestamp: {
         type: String,
         default: Date.now,
