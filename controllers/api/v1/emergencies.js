@@ -55,7 +55,7 @@ const create = async (req, res) => {
             filters: [
                 {"field": "location", "radius": "10000", "lat": emergency.latitude, "long": emergency.longitude} // 10 km radius
             ],
-            data: {longitude: emergency.longitude, latitude: emergency.latitude, extraInfo: emergency.extraInfo, route: '/emergency/' + newEmergency._id, emergencyId: newEmergency._id},
+            data: {longitude: emergency.longitude, latitude: emergency.latitude, extraInfo: emergency.extraInfo, route: '/emergency/' + newEmergency._id, emergencyId: newEmergency._id, helpers: emergency.userId},
         })
     };
 
