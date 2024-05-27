@@ -7,5 +7,5 @@ router.post('/', emergencies.create);
 router.get('/:id', emergencies.show);
 router.put('/:id', emergencies.update);
 router.get('/amount/:id', emergencies.amount);
-router.get('/addHelper/:id', emergencies.addHelper);//give emergencyid and userid in body
+router.patch('/addHelper/:id', emergencies.addHelper);//give emergencyid and userid in body
 module.exports = router;
