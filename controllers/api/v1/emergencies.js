@@ -108,15 +108,24 @@ const addHelper = async (req, res) => {
     if (emergency) {
         emergency.helpers.push(userId);
         await emergency.save();
+        console.log('Added helper to emergency');
         if(user){
             user.emergencies.push(req.params.id);
             await user.save();
+            console.log('Added emergency to user');
             res.json({
                 status: 200,
                 message: "Emergency added to user and helper added to emergency"
             });
-        } 
+        } else {
+            console.log('User not found');
+            res.json({
+                status: 404,
+                message: "User not found"
+            });
+        }
     } else {
+        console.log('Emergency not found');
         res.status(404).json({
             status: 404,
             message: "Emergency not found"
