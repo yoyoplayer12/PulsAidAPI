@@ -140,7 +140,6 @@ const addHelper = async (req, res) => {
 const getHelpernumberByEmergencyId = async (req, res) => {
     let emergency = await Emergency.findById(req.params.id);
     if(emergency){
-        io.emit('helperNumber', emergency.userId.length);
         res.json({
             status: 200,
             amount: emergency.userId.length
