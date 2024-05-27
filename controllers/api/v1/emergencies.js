@@ -115,14 +115,7 @@ const addHelper = async (req, res) => {
                 status: 200,
                 message: "Emergency added to user and helper added to emergency"
             });
-        }
-        else{
-            res.json({
-                status: 200,
-                message: "Helper added to emergency but emergency not added to user"
-            });
-        }    
-        
+        } 
     } else {
         res.status(404).json({
             status: 404,
