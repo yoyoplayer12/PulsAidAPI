@@ -115,6 +115,10 @@ const addHelper = async (req, res) => {
         if(user){
             user.emergencies.push(req.params.id);
             await user.save();
+            res.json({
+                status: 200,
+                message: "Emergency added to user and helper added to emergency"
+            });
         }
     } else {
         res.status(404).json({
