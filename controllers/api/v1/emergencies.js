@@ -51,7 +51,6 @@ const create = async (req, res) => {
             name: 'PulsAid notification',
             headings: {en: 'Someone is dying!', nl: 'Iemand is aan het sterven!'},
             contents: {en: 'Quickly, click me to save a life', nl: 'Klik snel om een leven te redden'},
-            // possible location fix
             filters: [
                 {"field": "location", "radius": "10000", "lat": emergency.latitude, "long": emergency.longitude} // 10 km radius
             ],
@@ -63,11 +62,18 @@ const create = async (req, res) => {
         .then(response => response.json())
         .then(data => console.log(data))
         .catch(error => console.log(error));
+
+    // Emit 'newEmergency' event with the new emergency data
+    req.app.get('io').emit('newEmergency', newEmergency);
+
     res.json({
         status: 200,
-        message: "Emergency created"
+        message: "Emergency created",
+        data: newEmergency
     });
 };
+
+
 const show = async (req, res) => {
     let emergency = await Emergency.findById(req.params.id);
     res.json({ 
