@@ -8,4 +8,5 @@ router.get('/:id', emergencies.show);
 router.put('/:id', emergencies.update);
 router.get('/amount/:id', emergencies.amount);
 router.patch('/addHelper/:id', emergencies.addHelper);//give emergencyid and userid in body
+router.get('/getHelpernumberByEmergencyId/:id', emergencies.getHelpernumberByEmergencyId);
 module.exports = router;

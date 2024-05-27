@@ -3,6 +3,7 @@ const Emergency = require('../../../models/Emergency.js');
 const User = require('../../../models/User.js');
 require('dotenv').config();
 const fetch = require('node-fetch');
+const { get } = require('mongoose');
 
 function formatDate(date = new Date()) {
     const day = String(date.getDate()).padStart(2, '0');
@@ -51,6 +52,7 @@ const create = async (req, res) => {
             name: 'PulsAid notification',
             headings: {en: 'Someone is dying!', nl: 'Iemand is aan het sterven!'},
             contents: {en: 'Quickly, click me to save a life', nl: 'Klik snel om een leven te redden'},
+            // possible location fix
             filters: [
                 {"field": "location", "radius": "10000", "lat": emergency.latitude, "long": emergency.longitude} // 10 km radius
             ],
@@ -62,18 +64,11 @@ const create = async (req, res) => {
         .then(response => response.json())
         .then(data => console.log(data))
         .catch(error => console.log(error));
-
-    // Emit 'newEmergency' event with the new emergency data
-    req.app.get('io').emit('newEmergency', newEmergency);
-
     res.json({
         status: 200,
-        message: "Emergency created",
-        data: newEmergency
+        message: "Emergency created"
     });
 };
-
-
 const show = async (req, res) => {
     let emergency = await Emergency.findById(req.params.id);
     res.json({ 
@@ -139,11 +134,28 @@ const addHelper = async (req, res) => {
     }
 };
 
+
+const getHelpernumberByEmergencyId = async (req, res) => {
+    let emergency = await Emergency.findById(req.params.id);
+    if(emergency){
+        res.json({
+            status: 200,
+            amount: emergency.userId.length
+        });
+    } else {
+        res.status(404).json({
+            status: 404,
+            message: "Emergency not found"
+        });
+    }
+};
+
 module.exports = {
     index,
     create,
     show,
     update,
     amount,
-    addHelper
+    addHelper,
+    getHelpernumberByEmergencyId
 };
