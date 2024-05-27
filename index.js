@@ -7,7 +7,7 @@ const { Server } = require('socket.io');
 const port = 3000;
 const server = http.createServer(app);
 const io = new Server(server);
-const { Emergency } = require('./models');
+const { Emergency } = require('./models/Emergency.js');
 
 
 io.on('connection', (socket) => {
