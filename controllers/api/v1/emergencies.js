@@ -135,32 +135,51 @@ const addHelper = async (req, res) => {
 };
 
 
+// This is your HTTP handler. It should remain as it was.
 const getHelpernumberByEmergencyId = async (req, res) => {
     let emergency = await Emergency.findById(req.params.id);
     if(emergency){
-        // Prepare the data to be sent
-        const data = {
+        res.json({
             status: 200,
-            helpers: emergency.userId.length
-        };
-
-        // Emit 'helperNumber' event with the data
-        req.app.get('io').emit('helperNumber', data);
-
-        res.json(data);
+            amount: emergency.userId.length
+        });
     } else {
-        // Prepare the data to be sent
-        const data = {
+        res.status(404).json({
             status: 404,
             message: "Emergency not found"
-        };
-
-        // Emit 'helperNumberError' event with the data
-        req.app.get('io').emit('helperNumberError', data);
-
-        res.status(404).json(data);
+        });
     }
 };
+
+// This is your new WebSocket handler. It should be outside of your HTTP handlers.
+io.on('connection', (socket) => {
+    socket.on('getHelperNumber', async (message) => {
+        const { emergencyId } = JSON.parse(message);
+
+        let emergency = await Emergency.findById(emergencyId);
+        if (emergency) {
+            // Prepare the data to be sent
+            const data = {
+                status: 200,
+                helpers: emergency.userId.length
+            };
+
+            // Emit 'helperNumber' event with the data
+            socket.emit('helperNumber', data);
+        } else {
+            // Prepare the data to be sent
+            const data = {
+                status: 404,
+                message: "Emergency not found"
+            };
+
+            // Emit 'helperNumberError' event with the data
+            socket.emit('helperNumberError', data);
+        }
+    });
+});
+
+
 
 module.exports = {
     index,
