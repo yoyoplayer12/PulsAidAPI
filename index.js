@@ -3,17 +3,41 @@ const http = require('http');
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
-const server = http.createServer(app);
+const { Server } = require('socket.io');
 const port = 3000;
-const socketIo = require('socket.io');
-const io = socketIo(server);
+const server = http.createServer(app);
+const io = new Server(server);
+const { Emergency } = require('./models');
+
 
 io.on('connection', (socket) => {
-    console.log('New client connected');
-    socket.on('disconnect', () => {
-        console.log('Client disconnected');
+    socket.on('getHelperNumber', async (message) => {
+        const { emergencyId } = JSON.parse(message);
+
+        let emergency = await Emergency.findById(emergencyId);
+        if (emergency) {
+            // Prepare the data to be sent
+            const data = {
+                status: 200,
+                helpers: emergency.userId.length
+            };
+
+            // Emit 'helperNumber' event with the data
+            socket.emit('helperNumber', data);
+        } else {
+            // Prepare the data to be sent
+            const data = {
+                status: 404,
+                message: "Emergency not found"
+            };
+
+            // Emit 'helperNumberError' event with the data
+            socket.emit('helperNumberError', data);
+        }
     });
 });
+
+
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
