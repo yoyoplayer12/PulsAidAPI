@@ -12,7 +12,7 @@ const { Emergency } = require('./models/Emergency.js');
 
 io.on('connection', (socket) => {
     socket.on('getHelperNumber', async (message) => {
-        const { emergencyId } = JSON.parse(message);
+        const { emergencyId } = message;
 
         let emergency = await Emergency.findById(emergencyId);
         if (emergency) {
