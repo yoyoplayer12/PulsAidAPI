@@ -10,10 +10,6 @@ const EmergencySchema = new Schema({
         type: Number,
         required: true
     },
-    helpers: {
-        type: [String],
-        required: false
-    },
     userId: {
         type: [String],
         required: false
