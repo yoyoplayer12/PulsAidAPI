@@ -138,15 +138,27 @@ const addHelper = async (req, res) => {
 const getHelpernumberByEmergencyId = async (req, res) => {
     let emergency = await Emergency.findById(req.params.id);
     if(emergency){
-        res.json({
+        // Prepare the data to be sent
+        const data = {
             status: 200,
-            amount: emergency.userId.length
-        });
+            helpers: emergency.userId.length
+        };
+
+        // Emit 'helperNumber' event with the data
+        req.app.get('io').emit('helperNumber', data);
+
+        res.json(data);
     } else {
-        res.status(404).json({
+        // Prepare the data to be sent
+        const data = {
             status: 404,
             message: "Emergency not found"
-        });
+        };
+
+        // Emit 'helperNumberError' event with the data
+        req.app.get('io').emit('helperNumberError', data);
+
+        res.status(404).json(data);
     }
 };
 
