@@ -62,7 +62,11 @@ const create = async (req, res) => {
 
     fetch(url, options)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => console.log(data)
+        deviceIds = data.id;
+        newEmergency.deviceIds = deviceIds;
+        newEmergency.save();
+    )
         .catch(error => console.log(error));
     res.json({
         status: 200,
