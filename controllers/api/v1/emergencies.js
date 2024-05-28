@@ -118,7 +118,10 @@ const addHelper = async (req, res) => {
         console.log('Added helper to emergency');
         console.log(emergency.deviceIds);
         if(user){
-            user.emergencies.push(req.params.id);
+            await User.updateOne(
+                { _id: userId },
+                { $addToSet: { emergencies: req.params.id } }
+            );
             await user.save();
             console.log('Added emergency to user');
             const numberOfUsers = emergency.userId.length;
