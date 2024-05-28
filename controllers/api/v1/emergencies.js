@@ -124,8 +124,8 @@ const addHelper = async (req, res) => {
             const payload = {
                 app_id: process.env.ONESIGNAL_APP_ID,
                 include_aliases: {
-                    external_id: emergency.deviceIds
-                  },
+                    external_id: [emergency.deviceIds]
+                },
                 target_channel: 'push',
                 data: { userCount: numberOfUsers },
                 content_available: true
