@@ -5,6 +5,10 @@ const app = express();
 const port = 3000;
 const WebSocket = require('ws');
 const Emergency = require('./models/Emergency.js');
+const Availability = require('./models/Availibility.js');
+const User = require('./models/User.js');
+const SideNotification = require('./models/SideNotifications.js');
+const Conversation = require('./models/Conversation.js');
 
 // Enable CORS
 app.use(cors());
