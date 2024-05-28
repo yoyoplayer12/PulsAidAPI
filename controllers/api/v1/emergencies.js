@@ -64,7 +64,7 @@ const create = async (req, res) => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            let deviceIds = data.id;
+            let deviceIds = data.external_id;
             newEmergency.deviceIds = deviceIds;
             newEmergency.save();
         })
@@ -123,9 +123,13 @@ const addHelper = async (req, res) => {
             const numberOfUsers = emergency.userId.length;
             const payload = {
                 app_id: process.env.ONESIGNAL_APP_ID,
-                include_player_ids: emergency.deviceIds, // Use the stored device IDs
+                include_aliases: {
+                    external_id: emergency.deviceIds
+                  },
+                target_channel: 'push',
                 data: { userCount: numberOfUsers },
                 content_available: true
+                
             };
             
             const notificationUrl = 'https://api.onesignal.com/notifications';
