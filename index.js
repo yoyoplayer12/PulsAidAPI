@@ -11,7 +11,7 @@ const { Emergency } = require('./models/Emergency.js');
 
 
 io.on('connection', (socket) => {
-    print('a user connected');
+    console.log("Connected to MongoDB!");
     socket.on('getHelperNumber', async (message) => {
         const { emergencyId } = message;
 
