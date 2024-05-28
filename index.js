@@ -79,5 +79,18 @@ db.once("open", () => {
             }
         });
     });
-
+    const server = app.listen(port, () => {
+        console.log(`Example app listening on port ${port}`);
+    });
+    
+    server.on('upgrade', (request, socket, head) => {
+        if (request.headers['upgrade'] !== 'websocket') {
+            socket.end('HTTP/1.1 400 Bad Request');
+            return;
+        }
+    
+        wss.handleUpgrade(request, socket, head, (ws) => {
+            wss.emit('connection', ws, request);
+        });
+    });
 });
