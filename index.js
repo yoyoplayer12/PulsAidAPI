@@ -10,7 +10,7 @@ const io = new Server(server);
 const Emergency = require('./models/Emergency'); // Correctly import the Emergency model
 
 io.on('connection', (socket) => {
-    print('a user connected');
+    console.log("Connected to MongoDB!");
     socket.on('getHelperNumber', async (message) => {
         try {
             const { emergencyId } = message;
