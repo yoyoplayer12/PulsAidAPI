@@ -110,7 +110,10 @@ const addHelper = async (req, res) => {
     let user = await User.findById(req.body.userId);
     let userId = req.body.userId;
     if (emergency) {
-        emergency.userId.push(userId);
+        await Emergency.updateOne(
+            { _id: req.params.id },
+            { $addToSet: { userId: userId } }
+        );
         await emergency.save();
         console.log('Added helper to emergency');
         console.log(emergency.deviceIds);
