@@ -11,6 +11,7 @@ const { Emergency } = require('./models/Emergency.js');
 
 
 io.on('connection', (socket) => {
+    print('a user connected');
     socket.on('getHelperNumber', async (message) => {
         const { emergencyId } = message;
 
