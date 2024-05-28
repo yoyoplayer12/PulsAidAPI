@@ -4,6 +4,7 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 const WebSocket = require('ws');
+const Emergency = require('./models/Emergency');
 
 // Connect to MongoDB (add slash for web)
 const credentials = "/etc/secrets/credentials.pem";
