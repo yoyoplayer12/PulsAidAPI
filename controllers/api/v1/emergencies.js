@@ -61,6 +61,10 @@ const create = async (req, res) => {
         })
     };
 
+    const deviceIds = data.recipients;
+    newEmergency.deviceIds = deviceIds;
+    await newEmergency.save();
+
     fetch(url, options)
         .then(response => response.json())
         .then(data => console.log(data))
@@ -115,6 +119,29 @@ const addHelper = async (req, res) => {
             user.emergencies.push(req.params.id);
             await user.save();
             console.log('Added emergency to user');
+            const numberOfUsers = emergency.userId.length;
+            const payload = {
+                app_id: process.env.ONESIGNAL_APP_ID,
+                include_player_ids: emergency.deviceIds, // Use the stored device IDs
+                data: { userCount: numberOfUsers },
+                content_available: true
+            };
+            
+            const notificationUrl = 'https://api.onesignal.com/notifications';
+            const notificationOptions = {
+                method: 'POST',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Basic ' + process.env.ONESIGNAL_API_KEY,
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            };
+
+            fetch(notificationUrl, notificationOptions)
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.log(error));
             res.json({
                 status: 200,
                 message: "Emergency added to user and helper added to emergency"
