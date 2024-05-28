@@ -136,7 +136,6 @@ const addHelper = async (req, res) => {
 };
 
 
-// This is your HTTP handler. It should remain as it was.
 const getHelpernumberByEmergencyId = async (req, res) => {
     let emergency = await Emergency.findById(req.params.id);
     if(emergency){
