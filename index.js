@@ -80,6 +80,19 @@ db.once("open", () => {
             }
         });
     });
+    const changeStream = Emergency.watch([
+        { $match: { 'updateDescription.updatedFields.userId': { $exists: true } } }
+    ]);
+    
+    changeStream.on('change', async (change) => {
+        const emergency = await Emergency.findOne({ _id: change.documentKey._id });
+        wss.clients.forEach((client) => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify({ type: 'helperCount', count: emergency.userId.length }));
+            }
+        });
+    });
+    
     const server = app.listen(port, () => {
         console.log(`Example app listening on port ${port}`);
     });
