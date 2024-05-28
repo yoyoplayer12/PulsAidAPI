@@ -38,8 +38,6 @@ const create = async (req, res) => {
     emergency.timestamp = formatDate(new Date());
     let newEmergency = new Emergency(emergency);
     await newEmergency.save();
-    console.log('Latitude:', emergency.latitude);
-    console.log('Longitude:', emergency.longitude);
     const url = 'https://api.onesignal.com/notifications';
     const options = {
         method: 'POST',
@@ -61,9 +59,6 @@ const create = async (req, res) => {
         })
     };
 
-    const deviceIds = data.recipients;
-    newEmergency.deviceIds = deviceIds;
-    await newEmergency.save();
 
     fetch(url, options)
         .then(response => response.json())
