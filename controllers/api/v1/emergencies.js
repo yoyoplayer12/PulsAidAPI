@@ -38,8 +38,6 @@ const create = async (req, res) => {
     emergency.timestamp = formatDate(new Date());
     let newEmergency = new Emergency(emergency);
     await newEmergency.save();
-    console.log('Latitude:', emergency.latitude);
-    console.log('Longitude:', emergency.longitude);
     const url = 'https://api.onesignal.com/notifications';
     const options = {
         method: 'POST',
@@ -61,9 +59,15 @@ const create = async (req, res) => {
         })
     };
 
+
     fetch(url, options)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+            console.log(data);
+            let deviceIds = data.external_id;
+            newEmergency.deviceIds = deviceIds;
+            newEmergency.save();
+        })
         .catch(error => console.log(error));
     res.json({
         status: 200,
@@ -111,10 +115,38 @@ const addHelper = async (req, res) => {
         emergency.userId.push(userId);
         await emergency.save();
         console.log('Added helper to emergency');
+        console.log(emergency.deviceIds);
         if(user){
             user.emergencies.push(req.params.id);
             await user.save();
             console.log('Added emergency to user');
+            const numberOfUsers = emergency.userId.length;
+            const payload = {
+                app_id: process.env.ONESIGNAL_APP_ID,
+                include_aliases: {
+                    external_id: [emergency.deviceIds]
+                },
+                target_channel: 'push',
+                data: { userCount: numberOfUsers },
+                content_available: true
+                
+            };
+            
+            const notificationUrl = 'https://api.onesignal.com/notifications';
+            const notificationOptions = {
+                method: 'POST',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Basic ' + process.env.ONESIGNAL_API_KEY,
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            };
+
+            fetch(notificationUrl, notificationOptions)
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.log(error));
             res.json({
                 status: 200,
                 message: "Emergency added to user and helper added to emergency"
