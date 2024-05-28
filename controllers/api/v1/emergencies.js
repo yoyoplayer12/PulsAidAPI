@@ -115,6 +115,7 @@ const addHelper = async (req, res) => {
         emergency.userId.push(userId);
         await emergency.save();
         console.log('Added helper to emergency');
+        console.log(emergency.deviceIds);
         if(user){
             user.emergencies.push(req.params.id);
             await user.save();
