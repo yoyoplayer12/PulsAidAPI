@@ -62,17 +62,11 @@ const create = async (req, res) => {
 
     fetch(url, options)
         .then(response => response.json())
-        .then(async data => {
+        .then(data => {
             console.log(data);
-            // Assume you need to manually track device IDs. Here, you would add logic to determine device IDs.
-            const deviceIds = data.recipients || []; // Example placeholder
+            let deviceIds = data.id;
             newEmergency.deviceIds = deviceIds;
-            await newEmergency.save();
-            res.json({
-                status: 200,
-                message: "Emergency created",
-                emergency: newEmergency // Optionally return the new emergency data
-            });
+            newEmergency.save();
         })
         .catch(error => console.log(error));
     res.json({
