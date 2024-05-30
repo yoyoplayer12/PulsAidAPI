@@ -7,7 +7,7 @@ const WebSocket = require('ws');
 const Emergency = require('./models/Emergency');
 
 // Connect to MongoDB (add slash for web)
-const credentials = "/etc/secrets/credentials.pem";
+const credentials = "etc/secrets/credentials.pem";
 mongoose.connect(
     "mongodb+srv://pulsaid.ooraany.mongodb.net/app?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority&appName=PulsAid",
     {
