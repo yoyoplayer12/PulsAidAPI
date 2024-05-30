@@ -121,7 +121,7 @@ const checkCertificationEndDate = async () => {
     };
 }
 
-cron.schedule('11 11 * * *', checkCertificationEndDate);
+cron.schedule('00 9 * * *', checkCertificationEndDate);
 
 
 const index = async (req, res) => {
