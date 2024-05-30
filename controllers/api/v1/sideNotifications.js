@@ -7,7 +7,7 @@ const cron = require('node-cron');
 
 
 const checkCertificationEndDate = async () => {
-    let users = await User.find();
+    let users = await User.find({ role: 'EHBO' });
     let currentDate = new Date();
     let oneDayFromNow = new Date(currentDate.getTime() + 24*60*60*1000);
     let oneWeekFromNow = new Date(currentDate.getTime() + 7*24*60*60*1000);
@@ -26,6 +26,7 @@ const checkCertificationEndDate = async () => {
                     description: 'your_certificate_expires_tomorrow',
                     action: 'renew',
                     strong: ['certificate', 'tomorrow'],
+                    role: 'EHBO'
                 });
                 await sideNotification.save();
                 const url = 'https://api.onesignal.com/notifications';
@@ -57,6 +58,7 @@ const checkCertificationEndDate = async () => {
                     description: 'your_certificate_expires_in_1_week',
                     action: 'renew',
                     strong: ['certificate', '1', 'week'],
+                    role: 'EHBO'
                 });
                 await sideNotification.save();
                 const url = 'https://api.onesignal.com/notifications';
@@ -88,6 +90,7 @@ const checkCertificationEndDate = async () => {
                     description: 'your_certificate_expires_in_1_month',
                     action: 'renew',
                     strong: ['certificate', '1', 'month'],
+                    role: 'EHBO'
                 });
                 await sideNotification.save();
                 const url = 'https://api.onesignal.com/notifications';
@@ -118,7 +121,7 @@ const checkCertificationEndDate = async () => {
     };
 }
 
-cron.schedule('00 9 * * *', checkCertificationEndDate);
+cron.schedule('11 11 * * *', checkCertificationEndDate);
 
 
 const index = async (req, res) => {
