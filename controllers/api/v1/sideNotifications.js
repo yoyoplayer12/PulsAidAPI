@@ -16,10 +16,6 @@ const checkCertificationEndDate = async () => {
     for (let i = 0; i < users.length; i++) {
         for (let j = 0; j < users[i].certifications.length; j++) {
             let certEndDate = new Date(users[i].certifications[j].certification_enddate);
-            console.log('enddate ' + certEndDate);
-            console.log('tomorrow ' + oneDayFromNow);
-            console.log('over 1 week ' + oneWeekFromNow);
-            console.log('over 1 month ' + oneMonthFromNow);
             if (certEndDate < oneDayFromNow) {
                 let sideNotification = new SideNotification({
                     user: users[i]._id,
@@ -29,29 +25,31 @@ const checkCertificationEndDate = async () => {
                     role: 'EHBO'
                 });
                 await sideNotification.save();
-                const url = 'https://api.onesignal.com/notifications';
-                const options = {
-                    method: 'POST',
-                    headers: {
-                        accept: 'application/json',
-                        Authorization: 'Basic ' + process.env.ONESIGNAL_API_KEY,
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        app_id: process.env.ONESIGNAL_APP_ID,
-                        name: 'PulsAid notification',
-                        headings: {en: 'Certificate expires tomorrow', nl: 'Certificaat loopt morgen af'},
-                        contents: {en: 'Renew your certificate now', nl: 'Vernieuw je certificaat nu'},
-                        include_aliases: {
-                            external_id: [users[i]._id]
+                if(users[i].notifications !== false){
+                    const url = 'https://api.onesignal.com/notifications';
+                    const options = {
+                        method: 'POST',
+                        headers: {
+                            accept: 'application/json',
+                            Authorization: 'Basic ' + process.env.ONESIGNAL_API_KEY,
+                            'content-type': 'application/json'
                         },
-                        target_channel: 'push',
-                    })
-                };
-                fetch(url, options)
-                    .then(response => response.json())
-                    .then(data => console.log(data))
-                    .catch(error => console.log('error', error));
+                        body: JSON.stringify({
+                            app_id: process.env.ONESIGNAL_APP_ID,
+                            name: 'PulsAid notification',
+                            headings: {en: 'Certificate expires tomorrow', nl: 'Certificaat loopt morgen af'},
+                            contents: {en: 'Renew your certificate now', nl: 'Vernieuw je certificaat nu'},
+                            include_aliases: {
+                                external_id: [users[i]._id]
+                            },
+                            target_channel: 'push',
+                        })
+                    };
+                    fetch(url, options)
+                        .then(response => response.json())
+                        .then(data => console.log(data))
+                        .catch(error => console.log('error', error));
+                }
             }else if(certEndDate < oneWeekFromNow){
                 let sideNotification = new SideNotification({
                     user: users[i]._id,
@@ -61,29 +59,31 @@ const checkCertificationEndDate = async () => {
                     role: 'EHBO'
                 });
                 await sideNotification.save();
-                const url = 'https://api.onesignal.com/notifications';
-                const options = {
-                    method: 'POST',
-                    headers: {
-                        accept: 'application/json',
-                        Authorization: 'Basic ' + process.env.ONESIGNAL_API_KEY,
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        app_id: process.env.ONESIGNAL_APP_ID,
-                        name: 'PulsAid notification',
-                        headings: {en: 'Certificate expires in 1 week', nl: 'Certificaat loopt over 1 week af'},
-                        contents: {en: 'Renew your certificate now', nl: 'Vernieuw je certificaat nu'},
-                        include_aliases: {
-                            external_id: [users[i]._id]
+                if(users[i].notifications !== false){
+                    const url = 'https://api.onesignal.com/notifications';
+                    const options = {
+                        method: 'POST',
+                        headers: {
+                            accept: 'application/json',
+                            Authorization: 'Basic ' + process.env.ONESIGNAL_API_KEY,
+                            'content-type': 'application/json'
                         },
-                        target_channel: 'push',
-                    })
-                };
-                fetch(url, options)
-                    .then(response => response.json())
-                    .then(data => console.log(data))
-                    .catch(error => console.log('error', error));
+                        body: JSON.stringify({
+                            app_id: process.env.ONESIGNAL_APP_ID,
+                            name: 'PulsAid notification',
+                            headings: {en: 'Certificate expires in 1 week', nl: 'Certificaat loopt over 1 week af'},
+                            contents: {en: 'Renew your certificate now', nl: 'Vernieuw je certificaat nu'},
+                            include_aliases: {
+                                external_id: [users[i]._id]
+                            },
+                            target_channel: 'push',
+                        })
+                    };
+                    fetch(url, options)
+                        .then(response => response.json())
+                        .then(data => console.log(data))
+                        .catch(error => console.log('error', error));
+                }
             }else if(certEndDate < oneMonthFromNow){
                 let sideNotification = new SideNotification({
                     user: users[i]._id,
@@ -93,29 +93,31 @@ const checkCertificationEndDate = async () => {
                     role: 'EHBO'
                 });
                 await sideNotification.save();
-                const url = 'https://api.onesignal.com/notifications';
-                const options = {
-                    method: 'POST',
-                    headers: {
-                        accept: 'application/json',
-                        Authorization: 'Basic ' + process.env.ONESIGNAL_API_KEY,
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        app_id: process.env.ONESIGNAL_APP_ID,
-                        name: 'PulsAid notification',
-                        headings: {en: 'Certificate expires in 1 month', nl: 'Certificaat loopt over 1 maand af'},
-                        contents: {en: 'Renew your certificate now', nl: 'Vernieuw je certificaat nu'},
-                        include_aliases: {
-                            external_id: [users[i]._id]
+                if(users[i].notifications !== false){
+                    const url = 'https://api.onesignal.com/notifications';
+                    const options = {
+                        method: 'POST',
+                        headers: {
+                            accept: 'application/json',
+                            Authorization: 'Basic ' + process.env.ONESIGNAL_API_KEY,
+                            'content-type': 'application/json'
                         },
-                        target_channel: 'push',
-                    })
-                };
-                fetch(url, options)
-                    .then(response => response.json())
-                    .then(data => console.log(data))
-                    .catch(error => console.log('error', error));
+                        body: JSON.stringify({
+                            app_id: process.env.ONESIGNAL_APP_ID,
+                            name: 'PulsAid notification',
+                            headings: {en: 'Certificate expires in 1 month', nl: 'Certificaat loopt over 1 maand af'},
+                            contents: {en: 'Renew your certificate now', nl: 'Vernieuw je certificaat nu'},
+                            include_aliases: {
+                                external_id: [users[i]._id]
+                            },
+                            target_channel: 'push',
+                        })
+                    };
+                    fetch(url, options)
+                        .then(response => response.json())
+                        .then(data => console.log(data))
+                        .catch(error => console.log('error', error));
+                }
             }
         }
     };
