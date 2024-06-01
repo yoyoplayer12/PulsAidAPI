@@ -89,6 +89,11 @@ const UserSchema = new Schema({
         type: [String],
         required: false
     },
+    earCount: {
+        type: Number,
+        required: false,
+        default: 0
+    },
     timestamp: {
         type: String,
         default: Date.now,
