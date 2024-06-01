@@ -32,10 +32,10 @@ const create = async (req, res) => {
 };
 
 const show = async (req, res) => {
-    let emergency = await Emergency.findById(req.params.id);
+    let conversation = await Conversation.findById(req.params.id);
     res.json({ 
         status: 200,
-        emergency: emergency
+        conversation: conversation
     });
 };
 
