@@ -1,5 +1,6 @@
 const e = require('express');
 const Conversation = require('../../../models/Conversation.js');
+const User = require('../../../models/User.js');
 require('dotenv').config();
 
 
@@ -22,7 +23,6 @@ const create = async (req, res) => {
     let application = req.body;
 
     // Convert string dates to Date objects
-
     let newConversation = new Conversation(application);
     await newConversation.save();
     res.json({
@@ -39,10 +39,21 @@ const show = async (req, res) => {
     });
 };
 
+const showFive = async (req, res) => {
+    // take five users with lowest earcount that contain given platform, if there are less than five, take all
+    let users = await User.find({platforms: req.params.platform}).sort({earCount: 1}).limit(5);
+    res.json({ 
+        status: 200,
+        users: users
+    });
+
+}
+
 
 
 module.exports = {
     index,
     create,
-    show
+    show,
+    showFive
 };
