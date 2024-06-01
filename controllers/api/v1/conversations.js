@@ -46,6 +46,7 @@ const showFive = async (req, res) => {
         let query = {};
         query[`contact.${platform}`] = { $ne: "" };
         console.log('query:', query)
+        console.log('platform:', platform)
         let users = await User.find(query).sort({earCount: 1}).limit(5);
         res.json({ 
             status: 200,
@@ -59,8 +60,6 @@ const showFive = async (req, res) => {
         });
     }
 }
-
-
 
 module.exports = {
     index,
