@@ -5,6 +5,6 @@ const conversations = require('../../../controllers/api/v1/conversations.js');
 router.get('/', conversations.index);
 router.post('/', conversations.create);
 router.get('/:id', conversations.show);
-router.get('/:platform', conversations.showFive);
+router.get('/showfive/:platform', conversations.showFive);
 
 module.exports = router;
