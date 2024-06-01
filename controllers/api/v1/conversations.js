@@ -46,7 +46,7 @@ const showFive = async (req, res) => {
         let query = {};
         query[`contact.${platform}`] = { $ne: "" };
         let users = await User.find(query).sort({earCount: 1}).limit(5);
-        print('USERSSS: ' + users);
+        console.log('USERSSS: ' + users);
         // send a notification to all users
         users.forEach(user => {
             const url = 'https://api.onesignal.com/notifications';
