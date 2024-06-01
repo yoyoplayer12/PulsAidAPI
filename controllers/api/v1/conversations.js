@@ -64,9 +64,14 @@ const showFive = async (req, res) => {
                     })
                 };
                 fetch(url, options)
-                    .then(response => response.json())
-                    .then(data => console.log(data))
-                    .catch(error => console.log(`Error sending notification to user ${user._id}: ${error}`));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.errors && data.errors.includes('All included players are not subscribed')) {
+                        console.log(`User ${user._id} is not subscribed to notifications`);
+                    } else {
+                        console.log(data);
+                    }
+                })
             } catch (error) {
                 console.log(`Error processing user ${user._id}: ${error}`);
             }
