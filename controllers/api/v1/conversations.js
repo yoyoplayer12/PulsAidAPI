@@ -47,25 +47,29 @@ const showFive = async (req, res) => {
         let users = await User.find(query).sort({earCount: 1}).limit(5);
         console.log('USERSSS: ' + users);
         users.forEach(user => {
-            const url = 'https://api.onesignal.com/notifications';
-            const options = {
-                method: 'POST',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: 'Basic ' + process.env.ONESIGNAL_API_KEY,
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    app_id: process.env.ONESIGNAL_APP_ID,
-                    include_external_user_ids: [user._id.toString()],
-                    headings: {en: 'Someone needs your help', nl: 'Iemand heeft je hulp nodig'},
-                    contents: {en: 'Someone wants to talk to you on ' + platform, nl: 'Iemand wil met je praten op ' + platform},
-                })
-            };
-            fetch(url, options)
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.log(error));
+            try {
+                const url = 'https://api.onesignal.com/notifications';
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        accept: 'application/json',
+                        Authorization: 'Basic ' + process.env.ONESIGNAL_API_KEY,
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        app_id: process.env.ONESIGNAL_APP_ID,
+                        include_external_user_ids: [user._id.toString()],
+                        headings: {en: 'Someone needs your help', nl: 'Iemand heeft je hulp nodig'},
+                        contents: {en: 'Someone wants to talk to you on ' + platform, nl: 'Iemand wil met je praten op ' + platform},
+                    })
+                };
+                fetch(url, options)
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.log(`Error sending notification to user ${user._id}: ${error}`));
+            } catch (error) {
+                console.log(`Error processing user ${user._id}: ${error}`);
+            }
         });
         res.json({ 
             status: 200,
