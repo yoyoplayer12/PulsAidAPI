@@ -41,7 +41,11 @@ const show = async (req, res) => {
 
 const showFive = async (req, res) => {
     // take five users with lowest earcount that contain given platform, if there are less than five, take all
-    let users = await User.find({platforms: req.params.platform}).sort({earCount: 1}).limit(5);
+    let platform = req.params.platform;
+    let query = {};
+    query[`contact.${platform}`] = { $ne: "" };
+
+    let users = await User.find(query).sort({earCount: 1}).limit(5);
     res.json({ 
         status: 200,
         users: users
