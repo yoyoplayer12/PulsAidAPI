@@ -45,15 +45,13 @@ const showFive = async (req, res) => {
         let platform = req.params.platform;
         let query = {};
         query[`contact.${platform}`] = { $ne: "" };
-        console.log('queryyy:', query)
-        console.log('platform:', platform)
         let users = await User.find(query).sort({earCount: 1}).limit(5);
         res.json({ 
             status: 200,
             users: users
         });
     } catch (error) {
-        console.error('errorr' + error);
+        console.error('error' + error);
         res.status(500).json({ 
             status: 500,
             message: "Internal server error" 
