@@ -52,7 +52,7 @@ const UserSchema = new Schema({
             required: false
         },
     }],
-    contact: [
+    contact:
         {
             email: {
                 type: String,
@@ -70,8 +70,7 @@ const UserSchema = new Schema({
                 type: String,
                 required: false
             },
-        }
-    ],
+        },
     recoveryCode: {
         type: String,
         required: false
