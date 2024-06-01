@@ -46,7 +46,6 @@ const showFive = async (req, res) => {
         let query = {};
         query[`contact.${platform}`] = { $ne: "" };
         let users = await User.find(query).sort({earCount: 1}).limit(5);
-        console.log('USERSSS: ' + users);
         // send a notification to all users
         users.forEach(user => {
             const url = 'https://api.onesignal.com/notifications';
@@ -59,7 +58,7 @@ const showFive = async (req, res) => {
                 },
                 body: JSON.stringify({
                     app_id: process.env.ONESIGNAL_APP_ID,
-                    include_player_ids: [user.deviceId],
+                    include_player_ids: [user._id],
                     headings: {en: 'Someone needs your help', nl: 'Iemand heeft je hulp nodig'},
                     contents: {en: 'Someone wants to talk to you on ' + platform, nl: 'Iemand wil met je praten op ' + platform},
 //*                    data: {route: '/emergency/' + req.params.id, emergencyId: req.params.id}, *//
