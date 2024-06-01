@@ -61,6 +61,7 @@ const showFive = async (req, res) => {
                         include_external_user_ids: [user._id.toString()],
                         headings: {en: 'Someone needs your help', nl: 'Iemand heeft je hulp nodig'},
                         contents: {en: 'Someone wants to talk to you on ' + platform, nl: 'Iemand wil met je praten op ' + platform},
+                        data: {platform: platform},
                     })
                 };
                 fetch(url, options)
