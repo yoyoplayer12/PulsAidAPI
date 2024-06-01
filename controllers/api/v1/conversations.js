@@ -45,21 +45,53 @@ const showFive = async (req, res) => {
         let platform = req.params.platform;
         let query = {};
         query[`contact.${platform}`] = { $ne: "" };
-        console.log('queryyy:', query)
-        console.log('platform:', platform)
         let users = await User.find(query).sort({earCount: 1}).limit(5);
+        // send a notification to all users
+        users.forEach(user => {
+            const url = 'https://api.onesignal.com/notifications';
+            const options = {
+                method: 'POST',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Basic ' + process.env.ONESIGNAL_API_KEY,
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    app_id: process.env.ONESIGNAL_APP_ID,
+                    include_player_ids: [user.deviceId],
+                    headings: {en: 'Someone needs your help', nl: 'Iemand heeft je hulp nodig'},
+                    contents: {en: 'Someone wants to talk to you on ' + platform, nl: 'Iemand wil met je praten op ' + platform},
+//*                    data: {route: '/emergency/' + req.params.id, emergencyId: req.params.id}, *//
+                })
+            };
+            fetch(url, options)
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.log(error));
+        }
+        );
         res.json({ 
             status: 200,
             users: users
         });
     } catch (error) {
-        console.error('errorr' + error);
+        console.error('error' + error);
         res.status(500).json({ 
             status: 500,
             message: "Internal server error" 
         });
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 module.exports = {
     index,
