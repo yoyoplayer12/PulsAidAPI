@@ -41,16 +41,23 @@ const show = async (req, res) => {
 
 const showFive = async (req, res) => {
     // take five users with lowest earcount that contain given platform, if there are less than five, take all
-    let platform = req.params.platform;
-    let query = {};
-    query[`contact.${platform}`] = { $ne: "" };
-    console.log('queryy:', query)
-    let users = await User.find(query).sort({earCount: 1}).limit(5);
-    res.json({ 
-        status: 200,
-        users: users
-    });
-
+    try {
+        let platform = req.params.platform;
+        let query = {};
+        query[`contact.${platform}`] = { $ne: "" };
+        console.log('query:', query)
+        let users = await User.find(query).sort({earCount: 1}).limit(5);
+        res.json({ 
+            status: 200,
+            users: users
+        });
+    } catch (error) {
+        console.error('errorr' + error);
+        res.status(500).json({ 
+            status: 500,
+            message: "Internal server error" 
+        });
+    }
 }
 
 
