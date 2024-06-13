@@ -42,6 +42,7 @@ const show = async (req, res) => {
 const showFive = async (req, res) => {
     try {
         let platform = req.params.platform;
+        let helpuserId = req.params.helpuserId;
         let query = {};
         query[`contact.${platform}`] = { $ne: "" };
         let users = await User.find(query).sort({earCount: 1}).limit(5);
@@ -60,8 +61,8 @@ const showFive = async (req, res) => {
                         app_id: process.env.ONESIGNAL_APP_ID,
                         include_external_user_ids: [user._id.toString()],
                         headings: {en: 'Someone needs your help', nl: 'Iemand heeft je hulp nodig'},
-                        contents: {en: 'Someone wants to talk to you on ' + platform, nl: 'Iemand wil met je praten op ' + platform},
-                        data: {platform: platform},
+                        contents: {en: helpuserId + ' wants to talk to you on ' + platform, nl: helpuserId + ' wil met je praten op ' + platform},
+                        data: {platform: platform, helpuserId: helpuserId},
                     })
                 };
                 fetch(url, options)
@@ -89,15 +90,6 @@ const showFive = async (req, res) => {
         });
     }
 }
-
-
-
-
-
-
-
-
-
 
 module.exports = {
     index,
