@@ -98,6 +98,7 @@ const sendNotificationToUser = async (userid) => {
         // if (typeof userid !== 'string' && typeof userid !== 'number') {
         //     throw new Error('Invalid userid');
         // }
+        console.log("USERID: " + userid);
 		const url = "https://api.onesignal.com/notifications";
 		const options = {
 			method: "POST",
