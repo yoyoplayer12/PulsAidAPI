@@ -45,7 +45,6 @@ const showFive = async (req, res) => {
 		let query = {};
 		query[`contact.${platform}`] = { $ne: "" };
 		let users = await User.find(query).sort({ earCount: 1 }).limit(5);
-		console.log("USERSSS: " + users);
 		users.forEach((user) => {
 			try {
 				const url = "https://api.onesignal.com/notifications";
@@ -99,7 +98,7 @@ const sendNotificationToUser = async (req, res) => {
 		const options = {
 			method: "POST",
 			headers: {
-				accept: "application",
+				accept: "application/json",
 				Authorization: "Basic " + process.env.ONESIGNAL_API_KEY,
 				"content-type": "application/json",
 			},
