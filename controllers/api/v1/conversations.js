@@ -107,8 +107,8 @@ const sendNotificationToUser = async (req, res) => {
 				include_external_user_ids: [userid],
 				headings: { en: "Someone is available", nl: "Er is iemand beschikbaar" },
 				contents: {
-					en: userid + "Click here to go to the chat room",
-					nl: userid + "Klik hier om naar de chatroom te gaan",
+					en: "Click here to go to the chat room",
+					nl: "Klik hier om naar de chatroom te gaan",
 				},
 				data: { userid: userid },
 			}),
