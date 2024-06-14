@@ -60,8 +60,8 @@ const showFive = async (req, res) => {
 						include_external_user_ids: [user._id.toString()],
 						headings: { en: "Someone needs your help", nl: "Iemand heeft je hulp nodig" },
 						contents: {
-							en: helpuserId + " wants to talk to you on " + platform,
-							nl: helpuserId + " wil met je praten op " + platform,
+							en: "Someone wants to talk to you on " + platform,
+							nl: "Iemand wil met je praten op " + platform,
 						},
 						data: { platform: platform, helpuserId: helpuserId },
 					}),
@@ -105,10 +105,10 @@ const sendNotificationToUser = async (req, res) => {
 			body: JSON.stringify({
 				app_id: process.env.ONESIGNAL_APP_ID,
 				include_external_user_ids: [userid],
-				headings: { en: "Someone needs your help", nl: "Iemand heeft je hulp nodig" },
+				headings: { en: "Someone is available", nl: "Er is iemand beschikbaar" },
 				contents: {
-					en: userid + " wants to talk to you on ",
-					nl: userid + " wil met je praten op ",
+					en: userid + "Click here to go to the chat room",
+					nl: userid + "Klik hier om naar de chatroom te gaan",
 				},
 				data: { userid: userid },
 			}),
