@@ -94,10 +94,16 @@ const showFive = async (req, res) => {
 };
 const sendNotificationToUser = async (userid) => {
 	try {
-        // Ensure userid is a simple value and not an object with circular references
-        // if (typeof userid !== 'string' && typeof userid !== 'number') {
-        //     throw new Error('Invalid userid');
-        // }
+        try {
+            // Ensure userid is a simple value and not an object with circular references
+            if (typeof userid === 'object') {
+                userid = userid._id || userid.id; // replace with the correct property name
+            }
+            console.log("USERID: " + userid);
+            // ... rest of your code
+        } catch (error) {
+            console.log(`Error processing user ${userid}: ${error}`);
+        }
         console.log("USERID: " + userid);
 		const url = "https://api.onesignal.com/notifications";
 		const options = {
