@@ -6,5 +6,6 @@ router.get('/', conversations.index);
 router.post('/', conversations.create);
 router.get('/:id', conversations.show);
 router.get('/showfive/:platform/:helpuserId', conversations.showFive);
+router.get('/senduser/:id', conversations.sendNotificationToUser);
 
 module.exports = router;
