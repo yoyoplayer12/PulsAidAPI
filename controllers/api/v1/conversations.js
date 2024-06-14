@@ -108,7 +108,7 @@ const sendNotificationToUser = async (userid) => {
 			},
 			body: JSON.stringify({
 				app_id: process.env.ONESIGNAL_APP_ID,
-				include_external_user_ids: [userid.toString()],
+				include_external_user_ids: [userid],
 				headings: { en: "Someone needs your help", nl: "Iemand heeft je hulp nodig" },
 				contents: {
 					en: userid + " wants to talk to you on ",
