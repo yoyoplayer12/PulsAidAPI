@@ -95,9 +95,9 @@ const showFive = async (req, res) => {
 const sendNotificationToUser = async (userid) => {
 	try {
         // Ensure userid is a simple value and not an object with circular references
-        if (typeof userid !== 'string' && typeof userid !== 'number') {
-            throw new Error('Invalid userid');
-        }
+        // if (typeof userid !== 'string' && typeof userid !== 'number') {
+        //     throw new Error('Invalid userid');
+        // }
 		const url = "https://api.onesignal.com/notifications";
 		const options = {
 			method: "POST",
