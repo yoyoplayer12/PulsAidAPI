@@ -92,7 +92,7 @@ const showFive = async (req, res) => {
 		});
 	}
 };
-const sendNotificationToUser = async (userid, platform) => {
+const sendNotificationToUser = async (userid) => {
 	try {
 		const url = "https://api.onesignal.com/notifications";
 		const options = {
@@ -107,10 +107,10 @@ const sendNotificationToUser = async (userid, platform) => {
 				include_external_user_ids: [userid.toString()],
 				headings: { en: "Someone needs your help", nl: "Iemand heeft je hulp nodig" },
 				contents: {
-					en: userid + " wants to talk to you on " + platform,
-					nl: userid + " wil met je praten op " + platform,
+					en: userid + " wants to talk to you on ",
+					nl: userid + " wil met je praten op ",
 				},
-				data: { platform: platform, userid: userid },
+				data: { userid: userid },
 			}),
 		};
 		fetch(url, options)
